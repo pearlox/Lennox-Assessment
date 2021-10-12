@@ -10,7 +10,13 @@ import com.kalai.lennox.utils.Utilities;
 public class SignInPageFunctionalities extends TestBase {
 	
 	private Utilities utilities = new Utilities();
-	
+
+	/**
+	 * signIntoApplication method will sign into application using userName and password provided
+	 * @param userName indicates the email address
+	 * @param password indicates the password
+	 * @throws Exception when web element is not found
+	 */
 	public void signIntoApplication(String userName,String password) throws Exception {
 		try {
 			utilities.clickElement("xpath", HomePage.BUTTON_SIGN_IN);
@@ -33,7 +39,11 @@ public class SignInPageFunctionalities extends TestBase {
 			throw new FrameworkException(e.getMessage());
 		}
 	}
-	
+
+	/**
+	 * signOut will make the user to sign out of the application
+	 * @throws Exception when web element is not found
+	 */
 	public void signOut() throws Exception {
 		utilities.clickElement("xpath", HomePage.BUTTON_PROFILE);
 		

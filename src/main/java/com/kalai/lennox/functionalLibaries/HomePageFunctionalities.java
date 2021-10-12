@@ -6,8 +6,13 @@ import com.kalai.lennox.utils.Utilities;
 
 public class HomePageFunctionalities extends TestBase {
 
-	Utilities utilities = new Utilities();
-	
+	private Utilities utilities = new Utilities();
+
+	/**
+	 *
+	 * @param linkName specifies the link name to be navigated
+	 * @throws Exception when web element is not found
+	 */
 	public void navigateToSpecificPage(String linkName) throws Exception {
 		
 		utilities.waitUntilVisiblityOfElement("xpath", HomePage.BUTTON_MENU);
@@ -20,11 +25,20 @@ public class HomePageFunctionalities extends TestBase {
 	
 	}
 
+	/**
+	 *
+	 * @param linkName specifies the Page name
+	 */
 	private void waitForPageLoad(String linkName) {
 		utilities.waitUntilVisiblityOfElement("xpath", String.format(HomePage.SUBMENU_PAGE_HEADER,linkName));
 		utilities.waitUntilElementToBePresent("xpath", String.format(HomePage.SUBMENU_PAGE_HEADER,linkName));
 	}
 
+	/**
+	 *
+	 * @param linkName specifies the page name
+	 * @throws Exception when web element is not found
+	 */
 	private void clickOnLinkName(String linkName) throws Exception {
 		
 		utilities.waitUntilVisiblityOfElement("xpath", String.format(HomePage.SUBMENU_NAVIGATION,linkName));
@@ -32,7 +46,11 @@ public class HomePageFunctionalities extends TestBase {
 		
 		utilities.clickElement("xpath", String.format(HomePage.SUBMENU_NAVIGATION,linkName));
 	}
-	
+
+	/**
+	 * acceptAllCookies method will click on the Accept All cookies button
+	 * @throws Exception when web element is not found
+	 */
 	public void acceptAllCookies() throws Exception {
 		
 		utilities.waitUntilVisiblityOfElement("xpath", HomePage.ACCEPT_ALL_COOKIES);

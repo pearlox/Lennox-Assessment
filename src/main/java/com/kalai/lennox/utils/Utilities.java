@@ -28,15 +28,15 @@ import com.kalai.lennox.exception.FrameworkException;
 import com.kalai.lennox.objectRepositories.ProductCatalogPage;
 
 public class Utilities extends TestBase {
-	public static long PAGE_LOAD_TIMEOUT = 60;
-	public static long IMPLICIT_WAIT = 20;
+	protected static long PAGE_LOAD_TIMEOUT = 60;
+	protected static long IMPLICIT_WAIT = 20;
 
-	WebDriverWait wait = new WebDriverWait(driver,Long.valueOf(prop.getProperty("longwait")));
-	JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+	private WebDriverWait wait = new WebDriverWait(driver,Long.valueOf(prop.getProperty("longwait")));
+	private JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
 
 	/**
 	 * randomNumber method used to return random value between 0 - 1000
-	 * @return 
+	 * @return integer
 	 */
 	public static int randomNumber() {
 		Random random = new Random();
@@ -45,7 +45,7 @@ public class Utilities extends TestBase {
 
 	/**
 	 * getDateFormated returns us String with current date and time in dd-MM-yyyy HHmmss AM/PM format
-	 * @return 
+	 * @return string
 	 */
 	private String getDateFormated() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
@@ -55,8 +55,8 @@ public class Utilities extends TestBase {
 
 	/**
 	 * generateRandomLetters is used to generate random letters of specified length
-	 * @param length
-	 * @return
+	 * @param length indicates the length of the word to be generated
+	 * @return string
 	 */
 	public String generateRandomLetters(int length) {
 		StringBuilder sb = new StringBuilder();
@@ -71,10 +71,10 @@ public class Utilities extends TestBase {
 
 	/**
 	 * takeScreenshot method is used to take screenshot and return the path of the screenshot stored location
-	 * @return
+	 * @return file path
 	 */
 	public String takeScreenshot() {
-		String encodedBase64 = null;
+		String encodedBase64;
 		TakesScreenshot screenshot = (TakesScreenshot) driver;
 		File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
 		String pathName = System.getProperty("user.dir")+File.separator+"Screenshots"+File.separator+"SS_"+getDateFormated()+".png";
@@ -93,8 +93,8 @@ public class Utilities extends TestBase {
 	
 	/**
 	 * copyFile method is used to copy the file from source location to destination location
-	 * @param srcFile
-	 * @param destFile
+	 * @param srcFile indicates path of source file to be copied
+	 * @param destFile indicates destination file path
 	 */
 	private void copyFile(File srcFile,File destFile) {
 		try {
@@ -106,9 +106,9 @@ public class Utilities extends TestBase {
 
 	/**
 	 * clickElement is used to perform selenium click action with specified xpath
-	 * @param by
-	 * @param xpath
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @throws Exception when web element is not found
 	 */
 	public void clickElement(String by, String xpath) throws Exception {
 		WebElement element = null;
@@ -134,10 +134,10 @@ public class Utilities extends TestBase {
 
 	/**
 	 * inputText method is used to perform entering specified value into Textbox/Textareabox 
-	 * @param by
-	 * @param xpath
-	 * @param valueToBeEntered
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @param valueToBeEntered indicates the value to be entered
+	 * @throws Exception when web element is not found
 	 */
 	public void inputText(String by, String xpath,String valueToBeEntered) throws Exception {
 		try {
@@ -162,9 +162,9 @@ public class Utilities extends TestBase {
 
 	/**
 	 * clearTextBox is used to clear values from specified Textbox / Textareabox
-	 * @param by
-	 * @param xpath
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @throws Exception when web element is not found
 	 */
 	public void clearTextBox(String by, String xpath) throws Exception {
 		try {
@@ -189,8 +189,8 @@ public class Utilities extends TestBase {
 	
 	/**
 	 * verifyPageTitle method is used to verify the page title of the current page
-	 * @param expectedPageTitle
-	 * @throws Exception
+	 * @param expectedPageTitle indicates the expected page title
+	 * @throws Exception when web element is not found
 	 */
 	public void verifyPageTitle(String expectedPageTitle) throws Exception {
 		String actualPageTitle = driver.getTitle().trim();
@@ -205,10 +205,10 @@ public class Utilities extends TestBase {
 	
 	/**
 	 * getText is used to get the text of the specified web element
-	 * @param by
-	 * @param xpath
-	 * @return
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @return string
+	 * @throws Exception when web element is not found
 	 */
 	public String getText(String by, String xpath) throws Exception {
 		try {
@@ -231,9 +231,9 @@ public class Utilities extends TestBase {
 
 	/**
 	 * verifyElementDisplayed is used to verify whether element is displayed or not
-	 * @param by
-	 * @param xpath
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @throws Exception when web element is not found
 	 */
 	public void verifyElementDisplayed(String by, String xpath) throws Exception {
 		try {
@@ -262,9 +262,9 @@ public class Utilities extends TestBase {
 
 	/**
 	 * scrollInto method scrolls the browser window to the specified xpath
-	 * @param by
-	 * @param xpath
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @throws Exception when web element is not found
 	 */
 	public void scrollInto(String by,String xpath) throws Exception {
 		try {
@@ -295,11 +295,11 @@ public class Utilities extends TestBase {
 
 	/**
 	 * checkAttributeValue checks the value of the specified attribute name and compares with expected value
-	 * @param by
-	 * @param xpath
-	 * @param attributeName
-	 * @param expectedValue
-	 * @throws Exception
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
+	 * @param attributeName indicates the attribute name
+	 * @param expectedValue indicates teh expected value for the attribute name specified
+	 * @throws Exception when web element is not found
 	 */
 	public void checkAttributeValue(String by, String xpath,String attributeName,String expectedValue) throws Exception {
 		WebElement element = null;
@@ -329,8 +329,8 @@ public class Utilities extends TestBase {
 
 	/**
 	 * waitUntilElementToBePresent will make webdriver to wait until the element is present
-	 * @param by
-	 * @param xpath
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
 	 */
 	public void waitUntilElementToBePresent(String by,String xpath) {
 		try {
@@ -354,8 +354,8 @@ public class Utilities extends TestBase {
 
 	/**
 	 * waitUntilVisiblityOfElement will make webdriver to wait until the visibility of the element
-	 * @param by
-	 * @param xpath
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
 	 */
 	public void waitUntilVisiblityOfElement(String by,String xpath) {
 		tlNode.get().info("Waiting for visibility of element with locator '"+by+"' and value as '"+xpath+"'");
@@ -379,8 +379,8 @@ public class Utilities extends TestBase {
 
 	/**
 	 * waitUntilInvisiblityOfElement will make webdriver to wait until the element disappears
-	 * @param by
-	 * @param xpath
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
 	 */
 	public void waitUntilInvisiblityOfElement(String by,String xpath) {
 		tlNode.get().info("Waiting for invisibility of element with locator '"+by+"' and value as '"+xpath+"'");
@@ -404,8 +404,8 @@ public class Utilities extends TestBase {
 
 	/**
 	 * waitUntilElementToBeClickable will make webdriver to wait until the element is clickable
-	 * @param by
-	 * @param xpath
+	 * @param by indicates the element locator
+	 * @param xpath indicates the web element value
 	 */
 	public void waitUntilElementToBeClickable(String by,String xpath) {
 		tlNode.get().info("Waiting for element to be clickable with locator '"+by+"' and value as '"+xpath+"'");
@@ -429,9 +429,9 @@ public class Utilities extends TestBase {
 	
 	/**
 	 * compareTwoValues method compares two string and print the result in Extent reports
-	 * @param actualValue
-	 * @param expectedValue
-	 * @param fieldLabel
+	 * @param actualValue indicates the actual value to be compared
+	 * @param expectedValue indicates the expected value to be compared
+	 * @param fieldLabel indicates the field label name for which the comparision is made
 	 */
 	public void compareTwoValues(String actualValue,String expectedValue,String fieldLabel) {
 		if(actualValue.equals(expectedValue)){
@@ -440,7 +440,11 @@ public class Utilities extends TestBase {
 			tlNode.get().fail("Verification failed for <b>"+fieldLabel+"</b><br>Actual value : "+actualValue+"<br>Expected Value : "+expectedValue);
 		}
 	}
-	
+
+	/**
+	 * getTestDataFromInputSheet method is used to fetch and return the test data from the test data sheet
+	 * @return Map with Integer and Nested Map (String and String)
+	 */
 	public Map<Integer, Map<String, String>> getTestDataFromInputSheet() {
 		String filePath = System.getProperty("user.dir")+File.separator+"src"+File.separator+"main"+File.separator+"resources"
 				+File.separator+"TestDataSheet.xlsx";
@@ -485,10 +489,15 @@ public class Utilities extends TestBase {
 		}
 	}
 
+	/**
+	 * getAllColumnIndexFromSheet method is used to get all column index from the specified excel sheet
+	 * @param filePath indicates path of the excel sheet
+	 * @return Map with String and Integer where Column name is string and column no is integer
+	 */
 	private Map<String, Integer> getAllColumnIndexFromSheet(String filePath) {
 		Map<String, Integer> map = new HashMap<>();
 		try (FileInputStream inputStream = new FileInputStream(new File(filePath));
-				XSSFWorkbook workbook = new XSSFWorkbook(inputStream);){
+				XSSFWorkbook workbook = new XSSFWorkbook(inputStream)){
 			
 			XSSFSheet sheet = workbook.getSheet("Test Data");
 			Row row = sheet.getRow(0);

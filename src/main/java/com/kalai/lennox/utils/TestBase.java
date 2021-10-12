@@ -27,11 +27,11 @@ import com.kalai.lennox.exception.FrameworkException;
 
 public class TestBase {
 
-	public static WebDriver driver;
-	public static Properties prop;
-	public static ExtentReports extent;
-	public static ThreadLocal<ExtentTest> tlTest = new ThreadLocal<ExtentTest>();
-	public static ThreadLocal<ExtentTest> tlNode = new ThreadLocal<ExtentTest>();
+	protected static WebDriver driver;
+	protected static Properties prop;
+	protected static ExtentReports extent;
+	protected static ThreadLocal<ExtentTest> tlTest = new ThreadLocal<>();
+	protected static ThreadLocal<ExtentTest> tlNode = new ThreadLocal<>();
 
 	/**
 	 * Constructor to load properties from config.properties file
@@ -41,9 +41,7 @@ public class TestBase {
 			prop = new Properties();
 			FileInputStream ip = new FileInputStream(System.getProperty("user.dir")+ "/config.properties");
 			prop.load(ip);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -121,8 +119,7 @@ public class TestBase {
 	}
 
 	public ExtentTest createNode(String node) {
-		ExtentTest extentTest = tlNode.get().createNode(node);
-		return extentTest;
+		return tlNode.get().createNode(node);
 	}
 
 	public static void reportLog(String desc, Status status) {
