@@ -19,10 +19,10 @@ import com.kalai.lennox.utils.Utilities;
 
 public class VerifyProductStatusAvailability extends TestBase {
 
-	Utilities utilities;
-	SignInPageFunctionalities signInPage;
-	HomePageFunctionalities homePageFunctionalities;
-	ProductCatalogPageFunctionalities productCatalogPageFunctionalities;
+	private Utilities utilities;
+    private SignInPageFunctionalities signInPage;
+    private HomePageFunctionalities homePageFunctionalities;
+    private ProductCatalogPageFunctionalities productCatalogPageFunctionalities;
 
 	/**
 	 * Initialize and get the values from properties file which will be required for execution
@@ -63,17 +63,19 @@ public class VerifyProductStatusAvailability extends TestBase {
 				String pageNavigation = testDataMap.get("PageNavigation");
 				String pageTitle = testDataMap.get("PageTitle").trim();
 
+				String previousLinkName = "";
 				if(pageNavigation.contains(":::")) {
-					String pageNavigationLinkNames[] = pageNavigation.split(":::");
+					String[] pageNavigationLinkNames = pageNavigation.split(":::");
 					for(int i = 0;i<pageNavigationLinkNames.length;i++) {
 						if(i==0) {
 							productCatalogPageFunctionalities.navigateToCategoryLink(pageNavigationLinkNames[i].trim());
 						} else {
 							productCatalogPageFunctionalities.navigateToSubCategoryLink(pageNavigationLinkNames[i].trim());
 							if(i>1) {
-								productCatalogPageFunctionalities.waitForSubCategoryPageToLoad(pageNavigationLinkNames[i].trim());
+								productCatalogPageFunctionalities.waitForSubCategoryPageToLoad(previousLinkName);
 							}
-						} 
+						}
+						previousLinkName = pageNavigationLinkNames[i].trim();
 					}
 				} 
 
